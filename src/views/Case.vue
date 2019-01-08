@@ -4,18 +4,24 @@
 
     <!--导航区域-->
     <nav>
-      <div v-for="item,index in navList">
+      <div v-for="item,index in navList" :class="{active: index == navIndex}" @click.stop="changeNav(item,index)">
         <strong>{{item.name}}</strong>
       </div>
     </nav>
 
     <!--图片展示区-->
     <section>
-      <div class="content">
-        <div class="contentImg">
-          <img src="../assets/img/case/bg.png" alt="">
-        </div>
-      </div>
+      <ul class="contentList">
+        <li v-for="item,index in 10">
+          <div class="contentImg">
+            <img src="../assets/img/case/bg.png" alt="">
+          </div>
+          <div class="introduce clearfix">
+            <a href="javascript:;">阳光水岸</a>
+            <strong>THE NAME OF THE WORK</strong>
+          </div>
+        </li>
+      </ul>
     </section>
 
   </div>
@@ -23,46 +29,51 @@
 
 <script>
   export default {
-    data(){
-      return{
-        navList:[
+    data() {
+      return {
+        navList: [
           {
-            className:'simplicity',
-            name:'现代简约',
-            routerName:''
+            className: 'simplicity',
+            name: '现代简约',
+            routerName: ''
           },
           {
-            className:'classical ',
-            name:'欧式古典',
-            routerName:''
+            className: 'classical',
+            name: '欧式古典',
+            routerName: ''
           },
           {
-            className:'japanese ',
-            name:'现代日式',
-            routerName:''
+            className: 'japanese',
+            name: '现代日式',
+            routerName: ''
           },
           {
-            className:'chineseStyle ',
-            name:'新中式',
-            routerName:''
+            className: 'chineseStyle',
+            name: '新中式',
+            routerName: ''
           },
           {
-            className:'french ',
-            name:'法式',
-            routerName:''
+            className: 'french',
+            name: '法式',
+            routerName: ''
           },
-        ]
+        ],
+        navIndex: 0,
+      }
+    },
+    methods: {
+      changeNav(item, index) {
+        this.navIndex = index;
       }
     }
   }
 </script>
 
 <style scoped type="text/less" lang="less">
-  @r:30rem;
-
+  @r: 30rem;
 
   /*头部导航*/
-  header{
+  header {
     position: fixed;
     top: 0;
     left: 0;
@@ -74,53 +85,86 @@
     text-align: center;
     color: #010101;
     font-weight: bold;
+    border-bottom: 1px solid #fbf8f4;
   }
-  nav{
-    position:fixed;
-    left:0;
-    top:88/@r;
-    height:110/@r;
-    padding-top:13/@r;
-    width:100%;
-    line-height:71/@r;
-    font-size:24/@r;
-    font-family:"微软雅黑";
-    color:#333333;
+
+  nav {
+    position: fixed;
+    left: 0;
+    top: 88/@r;
+    padding-top: 13/@r;
+    width: 100%;
+    line-height: 71/@r;
+    font-size: 24/@r;
+    font-family: "微软雅黑";
+    color: #333333;
+    display: flex;
+    padding-bottom: 26/@r;
   }
-  nav div{
-    width:20%;
-    float:left;
-    text-align:center;
-    position:relative;
+
+  nav div {
+    width: 100%;
+    float: left;
+    text-align: center;
+    position: relative;
   }
-  nav div:before{
-    position:absolute;
-    bottom:-6/@r;
-    left:30%;
-    content:'';
-    width:60/@r;
-    height:6/@r;
-    background-color:#e60012;
+
+  nav div.active:before {
+    position: absolute;
+    bottom: -6/@r;
+    left: 50%;
+    content: '';
+    width: 60/@r;
+    height: 6/@r;
+    background-color: #e60012;
+    -webkit-border-radius: 3/@r;
+    -moz-border-radius: 3/@r;
+    border-radius: 3/@r;
+    transform: translateX(-50%);
   }
-  .active{
-    font-size:30/@r;
-    color:#e60012;
-    font-weight:bold;
+
+  nav div.active {
+    font-size: 30/@r;
+    color: #e60012;
+    font-weight: bold;
   }
 
   /*图片展示区*/
-  section{
-    position:fixed;
-    top:198/@r;
-    bottom:110/@r;
-    right:0;
-    left:0;
-    overflow:hidden;
+  section {
+    position: fixed;
+    top: 198/@r;
+    bottom: 110/@r;
+    right: 0;
+    left: 0;
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
   }
-  .contentImg>img{
-    width:100%;
-    height:460/@r;
-    display:block;
+
+  .contentImg > img {
+    width: 100%;
+    height: 460/@r;
+    display: block;
+  }
+
+  .introduce {
+    padding: 38/@r 50/@r;
+    font-size: 26/@r;
+    line-height: 70/@r;
+    font-family: "微软雅黑";
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .introduce > a {
+    float: left;
+    padding: 0 35/@r;
+    border: 2/@r solid #333;
+    -webkit-border-radius: 10/@r;
+    -moz-border-radius: 10/@r;
+    border-radius: 10/@r;
+  }
+
+  .introduce > strong {
+    float: right;
   }
 </style>

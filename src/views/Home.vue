@@ -5,7 +5,6 @@
       <div class="imgBox">
         <img src="../assets/img/home/img.png" alt="">
       </div>
-
       <!--导航区域-->
       <nav class="clearfix">
         <div v-for="item,index in navList" :class="item.className" @click.stop="junpPage(item)">
@@ -59,34 +58,30 @@
       <!--图片滚动区域-->
       <div class="wrapper">
         <ul class="content clearfix" ref="content">
-          <li v-for="item,index in 10">{{item}}</li>
+          <li v-for="item,index in 10">
+            <img src="../assets/img/case/bg.png" alt="">
+            <span>北欧风格{{item}}</span>
+          </li>
         </ul>
       </div>
 
       <!--独家策划-->
       <div class="plan">
-        <div class="renovation more">独家策划 <span class="caseList ">/ 精挑细选的案列</span></div>
-        <div class="planImg">
+        <div class="renovation more">独家策划 <span class="caseList ">/ 最优惠的活动</span></div>
+        <ul class="planImg">
 
-        </div>
+        </ul>
       </div>
 
     </section>
-
-    <!--底部导航-->
-    <footer class="clearfix">
-      <div v-for="item,index in footerList" :class="item.className">
-        <i></i>
-        <strong>{{item.name}}</strong>
-      </div>
-    </footer>
   </div>
 </template>
-
 <script>
+  import {mapGetters} from 'vuex'
+
   export default {
-    name: 'Home',
-    data () {
+    computed: mapGetters([]),
+    data() {
       return {
         navList: [
           {
@@ -110,28 +105,6 @@
             routerName: 'HelloWorld',
           },
         ],
-        footerList:[
-          {
-            className:'home',
-            name:'首页',
-            routerName:''
-          },
-          {
-            className:'caseList',
-            name:'案列',
-            routerName:''
-          },
-          {
-            className:'budget',
-            name:'预算',
-            routerName:''
-          },
-          {
-            className:'afterSale',
-            name:'售后',
-            routerName:''
-          },
-        ],
         changeList: [
           {
             name: '风格',
@@ -145,31 +118,35 @@
       }
     },
     methods: {
-      junpPage (item) {
+      junpPage(item) {
         this.$router.push({name: item.routerName})
       },
-      changeNav (item, index) {
+      changeNav(item, index) {
         console.log(item)
-        // this.$router.push({name: item.routerName})
         this.indexActive = index
       }
     },
-    mounted(){
+    mounted() {
       this.$nextTick(() => {
-        this.$refs.content.style.width =
-          this.$refs.content.children[0].getBoundingClientRect().width*this.$refs.content.children.length+'px';
-        let scroll = new BScroll('.wrapper',{
-          startX:0,
-          click:true,
-          scrollX:true,
-          scrollY:false,
-          eventPassthrough:'vertical'
+        var content = this.$refs.content;
+        var lis = content.children;
+        var w = 0;
+        for (let i = 0; i < lis.length; i++) {
+          w += lis[i].getBoundingClientRect().width;
+        }
+
+        content.style.width = w + 'rem';
+        let scroll = new BScroll('.wrapper', {
+          startX: 0,
+          click: true,
+          scrollX: true,
+          scrollY: false,
+          eventPassthrough: 'vertical'
         })
       });
     }
   }
 </script>
-
 <style scoped type="text/less" lang="less">
   @r: 30rem;
 
@@ -201,6 +178,7 @@
     width: 100%;
     height: 400/@r;
   }
+
   /*导航区域*/
   nav {
     margin-top: 60/@r;
@@ -241,7 +219,7 @@
   .anLi > i {
     width: 61/@r;
     height: 65/@r;
-    background:url("../assets/img/home/anLi.png") no-repeat;
+    background: url("../assets/img/home/anLi.png") no-repeat;
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
   }
@@ -274,113 +252,128 @@
   }
 
   /*预约设计区域*/
-  .makeContent{
-    padding:40/@r 0;
+  .makeContent {
+    padding: 40/@r 0;
     border-bottom: 20/@r solid #f8f8f8;
   }
-  .contents{
-    height:310/@r;
-    width:702/@r;
-    margin:0 auto;
+
+  .contents {
+    height: 310/@r;
+    width: 702/@r;
+    margin: 0 auto;
   }
-  .contentLeft{
-    width:360/@r;
-    height:310/@r;
-    padding:30/@r 0 0 30/@r;
-    background-color:#464855;
-    color:#fff;
-    position:relative;
-    border-radius:10/@r;
-    float:left;
+
+  .contentLeft {
+    width: 360/@r;
+    height: 310/@r;
+    padding: 30/@r 0 0 30/@r;
+    background-color: #464855;
+    color: #fff;
+    position: relative;
+    border-radius: 10/@r;
+    float: left;
   }
-  .contentLeft > p:nth-of-type(1){
-    font-size:33/@r;
-    line-height:53/@r;
-    font-family:"微软雅黑";
+
+  .contentLeft > p:nth-of-type(1) {
+    font-size: 33/@r;
+    line-height: 53/@r;
+    font-family: "微软雅黑";
 
   }
-  .contentLeft > p:nth-of-type(2){
-    font-size:27/@r;
-    line-height:49/@r;
-    font-family:"微软雅黑";
-  }
-  .contentLeft>img{
-    width:192/@r;
-    position:absolute;
-    left:144/@r;
-    top:145/@r;
-    display:block;
-  }
-  .contentRight{
-    width:322/@r;
-    height:100%;
-    margin-left:20/@r;
-    float:left;
-  }
-  .Designer, .Housing{
-    height:145/@r;
-    width:322/@r;
-    padding:20/@r 0 0 21/@r;
-    background-color:#f6f7fb;
-    border-radius:8/@r;
-    position:relative;
-  }
-  .firstText{
-    font-size:25/@r;
-    line-height:45/@r;
+
+  .contentLeft > p:nth-of-type(2) {
+    font-size: 27/@r;
+    line-height: 49/@r;
     font-family: "微软雅黑";
-    color:#333;
   }
-  .twoText{
-    font-size:20/@r;
-    line-height:42/@r;
+
+  .contentLeft > img {
+    width: 192/@r;
+    position: absolute;
+    left: 144/@r;
+    top: 145/@r;
+    display: block;
+  }
+
+  .contentRight {
+    width: 322/@r;
+    height: 100%;
+    margin-left: 20/@r;
+    float: left;
+  }
+
+  .Designer, .Housing {
+    height: 145/@r;
+    width: 322/@r;
+    padding: 20/@r 0 0 21/@r;
+    background-color: #f6f7fb;
+    border-radius: 8/@r;
+    position: relative;
+  }
+
+  .firstText {
+    font-size: 25/@r;
+    line-height: 45/@r;
     font-family: "微软雅黑";
-    color:#999;
+    color: #333;
   }
-  .Designer >img {
-    width:95/@r;
-    position:absolute;
-    left:205/@r;
-    bottom:0;
+
+  .twoText {
+    font-size: 20/@r;
+    line-height: 42/@r;
+    font-family: "微软雅黑";
+    color: #999;
   }
-  .Housing{
-    margin-top:20/@r;
+
+  .Designer > img {
+    width: 95/@r;
+    position: absolute;
+    left: 205/@r;
+    bottom: 0;
   }
-  .Housing >img {
-    width:130/@r;
-    position:absolute;
-    left:185/@r;
-    top:18/@r;
+
+  .Housing {
+    margin-top: 20/@r;
+  }
+
+  .Housing > img {
+    width: 130/@r;
+    position: absolute;
+    left: 185/@r;
+    top: 18/@r;
   }
 
   /*更多*/
-  .more{
-    height:114/@r;
-    width:702/@r;
-    margin:0 auto;
-    padding:40/@r 0;
+  .more {
+    height: 114/@r;
+    width: 702/@r;
+    margin: 0 auto;
+    padding: 40/@r 0;
   }
-  .moreContent{
-    width:100%;
+
+  .moreContent {
+    width: 100%;
   }
-  .renovation{
-    float:left;
-    font-size:34/@r;
+
+  .renovation {
+    float: left;
+    font-size: 34/@r;
     font-family: "微软雅黑";
     font-weight: bold;
   }
-  .renovation .caseList{
-    font-size:26/@r;
-    color:#666;
-  }
-  .mores{
-    float:right;
-    color:#676767;
-    font-size:25/@r;
+
+  .renovation .caseList {
+    font-size: 26/@r;
+    color: #666;
   }
 
+  .mores {
+    float: right;
+    color: #676767;
+    font-size: 25/@r;
+  }
 
-    /*风格、户型按钮*/
+  /*风格、户型按钮*/
   .changeNav > div {
     width: 456/@r;
     height: 72/@r;
@@ -388,7 +381,7 @@
     -webkit-border-radius: 36/@r;
     -moz-border-radius: 36/@r;
     border-radius: 36/@r;
-    margin: 0 auto ;
+    margin: 0 auto;
   }
 
   .changeNav a {
@@ -413,79 +406,51 @@
   /*图片滑动区域*/
   .wrapper {
     width: 100%;
-    height:410/@r;
-    margin-top:40/@r;
+    height: 410/@r;
+    margin-top: 40/@r;
     border-bottom: 20/@r solid #f8f8f8;
     overflow: hidden;
   }
 
+  .content {
+    padding: 0 4/@r;
+  }
+
   .content > li {
     float: left;
-    width: 100px;
-    height:200px;
-    line-height:100px;
-    text-align:center;
-    background:#eeeeee;
+    width: 340/@r;
+    height: 370/@r;
+    text-align: center;
+    padding-left: 20/@r;
+    font-size: 30/@r;
+    line-height: 370/@r;
+    font-family: "微软雅黑";
+    position: relative;
+  }
+
+  .content > li > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 15/@r;
+    -moz-border-radius: 15/@r;
+    border-radius: 15/@r;
+  }
+
+  .content > li > span {
+    position: absolute;
+    top: 0;
+    left: 20/@r;
+    right: 0;
+    bottom: 0;
+    font-weight: bold;
+    color: #fff;
   }
 
   /*独家策划*/
-  .plan{
-    height:354/@r;
-    margin-left:24/@r;
+  .plan {
+    height: 354/@r;
+    margin-left: 24/@r;
     border-bottom: 20/@r solid #f8f8f8;
-  }
-
-  /*底部导航*/
-  footer{
-    width:100%;
-    height:110/@r;
-    padding:12/@r 0 7/@r 0;
-    position:fixed;
-    bottom:0;
-    left:0;
-    font-size: 25/@r;
-    line-height: 32/@r;
-    font-family: "微软雅黑";
-    color: #3e3a39;
-  }
-  footer div{
-    float: left;
-    width: 25%;
-    text-align: center;
-  }
-  footer div i {
-    display: block;
-    margin: 0 auto;
-  }
-  .home>i{
-    width:54/@r;
-    height: 54/@r;
-    background:url("../assets/img/home/home.png") no-repeat;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    margin: 2/@r auto 3/@r;
-  }
-  .caseList>i{
-    width:55/@r;
-    height: 58/@r;
-    background:url("../assets/img/home/anLi.png") no-repeat;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    margin: 1/@r auto 0;
-  }
-  .budget>i{
-    width:48/@r;
-    height: 48/@r;
-    background:url("../assets/img/home/conputed.png") no-repeat;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    margin: 6/@r auto 5/@r;
-  }
-  .afterSale>i{
-    width:58/@r;
-    height: 59/@r;
-    background:url("../assets/img/home/afterSale.png") no-repeat;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
   }
 </style>
