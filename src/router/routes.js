@@ -1,4 +1,4 @@
-import HelloWorld from '@/views/HelloWorld'
+import Case from '@/views/Case'
 import Home from '@/views/Home'
 
 export default[
@@ -8,8 +8,8 @@ export default[
     component:Home
   },
   {
-    path:'/helloWorld',
-    name:'HelloWorld',
-    component:HelloWorld
+    path:'/Case',
+    name:'Case',
+    component:Case
   },
 ]
