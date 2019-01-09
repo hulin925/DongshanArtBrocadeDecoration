@@ -1,4 +1,8 @@
 <template>
+
+  <!--首页页面-->
+
+
   <div>
     <header>东山艺锦装饰</header>
     <section>
@@ -162,6 +166,7 @@
     text-align: center;
     color: #010101;
     font-weight: bold;
+    background-color:#fff;
   }
 
   section {

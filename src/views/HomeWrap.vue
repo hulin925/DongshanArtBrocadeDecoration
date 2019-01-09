@@ -1,4 +1,8 @@
 <template>
+
+  <!--底部导航页面-->
+
+
   <div>
     <router-view></router-view>
     <!--底部导航-->
@@ -34,7 +38,7 @@
           {
             className: 'budget',
             name: '预算',
-            routerName: ''
+            routerName: 'Budget'
           },
           {
             className: 'afterSale',
@@ -74,6 +78,7 @@
     line-height: 32/@r;
     font-family: "微软雅黑";
     color: #3e3a39;
+    background-color:#fff;
   }
 
   footer div {

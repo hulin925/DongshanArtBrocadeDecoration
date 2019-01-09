@@ -1,4 +1,9 @@
 <template>
+
+
+  <!--案列页面-->
+
+
   <div>
     <header>客服案列</header>
 
@@ -12,12 +17,12 @@
     <!--图片展示区-->
     <section>
       <ul class="contentList">
-        <li v-for="item,index in 10">
+        <li v-for="item,index in 10" :key="index">
           <div class="contentImg">
-            <img src="../assets/img/case/bg.png" alt="">
+            <img src="../assets/img/case/bg.png" alt="" @click.stop="Details(item)">
           </div>
           <div class="introduce clearfix">
-            <a href="javascript:;">阳光水岸</a>
+            <a href="javascript:;" @click.stop="Details(item)">阳光水岸</a>
             <strong>THE NAME OF THE WORK</strong>
           </div>
         </li>
@@ -35,27 +40,27 @@
           {
             className: 'simplicity',
             name: '现代简约',
-            routerName: ''
+            routerName: 'CaseDetails'
           },
           {
             className: 'classical',
             name: '欧式古典',
-            routerName: ''
+            routerName: 'CaseDetails'
           },
           {
             className: 'japanese',
             name: '现代日式',
-            routerName: ''
+            routerName: 'CaseDetails'
           },
           {
             className: 'chineseStyle',
             name: '新中式',
-            routerName: ''
+            routerName: 'CaseDetails'
           },
           {
             className: 'french',
             name: '法式',
-            routerName: ''
+            routerName: 'CaseDetails'
           },
         ],
         navIndex: 0,
@@ -64,6 +69,10 @@
     methods: {
       changeNav(item, index) {
         this.navIndex = index;
+      },
+      Details(item){
+        this.$router.push({name: item.routerName})
+        console.log(1);
       }
     }
   }
@@ -86,6 +95,7 @@
     color: #010101;
     font-weight: bold;
     border-bottom: 1px solid #fbf8f4;
+    background-color:#fff;
   }
 
   nav {
